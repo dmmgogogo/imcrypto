@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home/home_screen.dart';
+import 'main/main_screen.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -65,7 +65,7 @@ class App extends StatelessWidget {
           ),
         ),
       ),
-      home: const HomeScreen(),
+      home: const MainScreen(),
     );
   }
 } 
