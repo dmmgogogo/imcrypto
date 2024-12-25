@@ -1,21 +1,15 @@
 class Token {
   final String symbol;
   final String name;
-  final String contractAddress;
-  final int decimals;
-  final double balance;
+  final String balance;
   final double price;
-  final String imageUrl;
-  
-  const Token({
+
+  Token({
     required this.symbol,
     required this.name,
-    required this.contractAddress,
-    required this.decimals,
     required this.balance,
     required this.price,
-    required this.imageUrl,
   });
-  
-  double get balanceInUsd => balance * price;
+
+  double get balanceInUsd => double.parse(balance) * price;
 } 

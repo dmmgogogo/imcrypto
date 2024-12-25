@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/providers/wallet_provider.dart';
+import '../home/home_screen.dart';
 
 class BackupMnemonicScreen extends StatefulWidget {
   const BackupMnemonicScreen({Key? key}) : super(key: key);
@@ -85,7 +86,12 @@ class _BackupMnemonicScreenState extends State<BackupMnemonicScreen> {
               height: 48,
               child: ElevatedButton(
                 onPressed: () {
-                  // TODO: 实现验证助记词的功能
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const HomeScreen(),
+                    ),
+                    (route) => false,
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF0052FF),
@@ -116,6 +122,7 @@ class _MnemonicWord extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: (MediaQuery.of(context).size.width - 32 - 32 - 24) / 3,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -128,6 +135,7 @@ class _MnemonicWord extends StatelessWidget {
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }

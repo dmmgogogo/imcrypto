@@ -36,7 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
             return RefreshIndicator(
               onRefresh: () async {
                 final wallet = walletProvider.currentWallet!;
-                await context.read<TokenProvider>().loadTokens(wallet.address);
+                await context.read<TokenProvider>().loadTokens(
+                  context.read<TokenProvider>().getAddressForChain(wallet) ?? '',
+                );
               },
               child: SingleChildScrollView(
                 child: Column(
@@ -44,8 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 16),
                     WalletCard(
                       wallet: walletProvider.currentWallet!,
-                      balance: 811221.08,  // TODO: 从provider获取实际余额
-                      network: 'Ethereum',
+                      balance: 0.0,  // 这里可以从 TokenProvider 中获取余额
                     ),
                     const SizedBox(height: 24),
                     const ActionButtons(),
