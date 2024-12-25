@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/providers/wallet_provider.dart';
+import '../wallet/create_wallet_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -114,16 +115,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             width: double.infinity,
             height: 48,
             child: ElevatedButton(
-              onPressed: () async {
-                try {
-                  await context.read<WalletProvider>().createWallet();
-                } catch (e) {
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('创建钱包失败: $e')),
-                    );
-                  }
-                }
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CreateWalletScreen(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF0052FF),

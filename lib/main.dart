@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:imcrypto/core/providers/wallet_provider.dart';
-import 'package:imcrypto/core/providers/token_provider.dart';
-import 'package:imcrypto/features/app.dart';
+import 'core/services/wallet_service.dart';
+import 'core/providers/wallet_provider.dart';
+import 'features/app.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
-  
+void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => WalletProvider()),
-        ChangeNotifierProvider(create: (_) => TokenProvider()),
+        ChangeNotifierProvider(
+          create: (_) => WalletProvider(WalletService()),
+        ),
       ],
-      child: const ImCryptoApp(),
+      child: const App(),
     ),
   );
 } 

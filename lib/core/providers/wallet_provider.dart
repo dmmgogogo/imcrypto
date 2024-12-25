@@ -1,30 +1,45 @@
 import 'package:flutter/foundation.dart';
-import '../models/wallet.dart';
 import '../services/wallet_service.dart';
+import '../models/wallet.dart';
 
 class WalletProvider with ChangeNotifier {
   final WalletService _walletService;
-  CryptoWallet? _currentWallet;
-  bool _isLoading = false;
+  bool isLoading = false;
+  String? error;
+  CryptoWallet? currentWallet;
+  String? _mnemonic;
 
-  WalletProvider(): _walletService = WalletService();
+  WalletProvider(this._walletService);
 
-  CryptoWallet? get currentWallet => _currentWallet;
-  bool get isLoading => _isLoading;
-
-  Future<void> createWallet() async {
-    _isLoading = true;
-    notifyListeners();
-    
+  Future<void> createWallet({
+    required String name,
+    required String password,
+    String? passwordHint,
+  }) async {
     try {
-      _currentWallet = await _walletService.createWallet();
+      isLoading = true;
+      notifyListeners();
+
+      final result = await _walletService.createWallet(
+        name: name,
+        password: password,
+        passwordHint: passwordHint,
+      );
+      
+      currentWallet = result.$1;
+      _mnemonic = result.$2;
+
+      isLoading = false;
       notifyListeners();
     } catch (e) {
-      debugPrint('Error creating wallet: $e');
-      rethrow;
-    } finally {
-      _isLoading = false;
+      isLoading = false;
+      error = e.toString();
       notifyListeners();
+      rethrow;
     }
+  }
+
+  Future<String?> getMnemonic() async {
+    return _mnemonic ?? await _walletService.getMnemonic();
   }
 } 

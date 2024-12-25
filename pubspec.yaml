@@ -32,6 +32,7 @@ flutter:
     - .env
     - assets/icon/
     - assets/onboarding/wallet.png
+    - assets/networks/
 
 flutter_launcher_icons:
   ios: true
