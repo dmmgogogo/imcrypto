@@ -1,0 +1,12 @@
+flutter clean
+cd ios
+pod deintegrate
+pod install
+cd ..
+flutter pub get
+flutter emulators
+flutter emulators --launch apple_ios_simulator
+flutter devices
+flutter run -d 'your device id'
+open ios/Runner.xcworkspace
+rm -rf ~/Library/Developer/Xcode/DerivedData
